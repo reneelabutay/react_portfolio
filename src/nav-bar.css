@@ -13,17 +13,16 @@
 	text-transform: uppercase;
 	letter-spacing: 5px;
 	font-size: 20px;
-	
-
 }
+
 /*TabList*/
+
 .nav-links {
 	display:flex;
 	justify-content: space-around;
 	width: 40%;
 	
 }
-
 
 .tab > h2 {
 	color: #e3e4e0;
@@ -38,43 +37,37 @@
 	color: #c7c7bb;
 }
 
-/* Adding Responsiveness*/
-@media screen and (max-width: 1096px) {
-	.nav-links {
-		width: 55%;
-	}
-}
-
 /*********************/
 /***  BURGER MENU  ***/
 /*********************/
-
 .burger-menu {
 	display: none;
+
 }
+
 /* Position and sizing of burger button */
 .bm-burger-button {
-  position: fixed;
+  position: relative; 
   width: 36px;
   height: 30px;
   right: 36px;
-  top: 36px;
 }
 
 /* Color/shape of burger icon bars */
 .bm-burger-bars {
-  background: #373a47;
+  background: #e3e4e0;
 }
 
 /* Color/shape of burger icon bars on hover*/
 .bm-burger-bars-hover {
-  background: #5f7782;
+  background: #c7c7bb;
 }
 
 /* Position and sizing of clickable cross button */
 .bm-cross-button {
   height: 24px;
   width: 24px;
+  
 }
 
 /* Color/shape of close button cross */
@@ -87,8 +80,10 @@ Sidebar wrapper styles
 Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
 */
 .bm-menu-wrap {
-  position: fixed;
+  position: absolute;
   height: 100%;
+  transform: translateX(100%);
+  
 }
 
 /* General sidebar styles */
@@ -96,11 +91,12 @@ Note: Beware of modifying this element as it can break the animations - you shou
   background: #5f7782;
   padding: 2.5em 1.5em 0;
   font-size: 1.15em;
+
 }
 
 /* Morph shape necessary with bubble or elastic */
 .bm-morph-shape {
-  fill: #e3e4e0;
+  fill: #373a47;
 }
 
 /* Wrapper for item list */
@@ -124,6 +120,25 @@ Note: Beware of modifying this element as it can break the animations - you shou
 /* Styling of overlay */
 .bm-overlay {
   background: rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
 }
 
+
+/* Adding Responsiveness */
+@media screen and (max-width: 1096px) {
+	.nav-links {
+		width: 55%;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	.nav-links {
+		display: none;
+	}
+	.burger-menu {
+		display:block;
+		
+	}
+
+}
 

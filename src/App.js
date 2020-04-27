@@ -49,13 +49,18 @@ export class App extends Component {
 	    			<TabList className="nav-links" tabs={tabs} 
 	    			changeTab={this.changeTab}
 	    			activeTab={this.state.activeTab}/>
+	    			<div className="burger-menu">
+	    				<HamburgerMenu/>
+	    			</div>
 	    		</div>
-	    		<div className="burger-menu">
-	    			<HamburgerMenu/>
-	    		</div>
+
+
+	    		
+	    		
 	    		<div className="main-body">
 	    			<Body activeTab={this.state.activeTab}/>
 	    		</div>
+
 	    		<div className="scroll-button">
 	    			<ScrollToTop/>
 	    		</div>

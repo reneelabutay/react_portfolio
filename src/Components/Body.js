@@ -3,7 +3,7 @@ import Home from './Home'
 import Projects from './Projects'
 import Photography from './Photography'
 import Recipes from './Recipes'
-import NavBar from './NavBar'
+
 
 
 export class Body extends Component {
