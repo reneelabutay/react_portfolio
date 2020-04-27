@@ -1,0 +1,129 @@
+/*should be 'nav'*/
+.navigation-bar {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 8vh;
+	background-color: #5f7782;
+	font-family: 'Libre Franklin';
+	
+}
+.logo {
+	color: #e3e4e0;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-size: 20px;
+	
+
+}
+/*TabList*/
+.nav-links {
+	display:flex;
+	justify-content: space-around;
+	width: 40%;
+	
+}
+
+
+.tab > h2 {
+	color: #e3e4e0;
+	text-decoration: none;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: bold;
+	
+}
+.tab > h2:hover {
+	color: #c7c7bb;
+}
+
+/* Adding Responsiveness*/
+@media screen and (max-width: 1096px) {
+	.nav-links {
+		width: 55%;
+	}
+}
+
+/*********************/
+/***  BURGER MENU  ***/
+/*********************/
+
+.burger-menu {
+	display: none;
+}
+/* Position and sizing of burger button */
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  right: 36px;
+  top: 36px;
+}
+
+/* Color/shape of burger icon bars */
+.bm-burger-bars {
+  background: #373a47;
+}
+
+/* Color/shape of burger icon bars on hover*/
+.bm-burger-bars-hover {
+  background: #5f7782;
+}
+
+/* Position and sizing of clickable cross button */
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+/* Color/shape of close button cross */
+.bm-cross {
+  background: #e3e4e0;
+}
+
+/*
+Sidebar wrapper styles
+Note: Beware of modifying this element as it can break the animations - you should not need to touch it in most cases
+*/
+.bm-menu-wrap {
+  position: fixed;
+  height: 100%;
+}
+
+/* General sidebar styles */
+.bm-menu {
+  background: #5f7782;
+  padding: 2.5em 1.5em 0;
+  font-size: 1.15em;
+}
+
+/* Morph shape necessary with bubble or elastic */
+.bm-morph-shape {
+  fill: #e3e4e0;
+}
+
+/* Wrapper for item list */
+.bm-item-list {
+  color: #e3e4e0;
+  padding: 0.8em;
+
+}
+
+/* Individual item */
+.bm-item {
+  display: inline-block;
+  color: #e3e4e0;
+  text-decoration: none;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding-bottom: 20px;
+
+}
+
+/* Styling of overlay */
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+

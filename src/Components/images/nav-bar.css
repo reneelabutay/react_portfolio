@@ -1,0 +1,111 @@
+nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	min-height: 8vh;
+	background-color: #5f7782;
+	font-family: 'Libre Franklin';
+}
+.logo {
+	color: #e3e4e0;
+	text-transform: uppercase;
+	letter-spacing: 5px;
+	font-size: 20px;
+}
+
+.nav-bar {
+	display: flex;
+	justify-content: space-around;
+	width: 40%;
+} 
+.nav-bar li {
+	list-style: none;
+
+}
+.nav-bar a {
+	color: #e3e4e0;
+	text-decoration: none;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+/*Tab corresponding to the current page on display should be highlighted.*/
+.nav-bar a:hover {
+	color: #c7c7bb;
+}
+
+.lines {
+	display: none;
+	cursor: pointer;
+}
+
+.lines div {
+	width: 25px;
+	height: 2px;
+	background-color: #e3e4e0;
+	margin: 5px;
+	transition: all 0.3s ease;
+}
+/* Adding Responsiveness*/
+@media screen and (max-width: 1096px) {
+	.nav-bar {
+		width: 55%;
+	}
+}
+
+@media screen and (max-width: 850px) {
+	body {
+		overflow-x: hidden;
+	}
+	.nav-bar {
+		position:absolute;
+		right: 0px;
+		height: 92vh;
+		top: 8vh;
+		background-color: #5f7782;
+		display:flex;
+		flex-direction: column;
+		align-items: center;
+		width: 50%;
+		transform: translateX(100%);
+		
+	}
+	.nav-bar li {
+		opacity:0;
+	}
+	.lines {
+		display: block;
+	}
+}
+
+.nav-active {
+	transform: translateX(0%);
+	transition: transform 0.5s ease-out;
+}
+
+@keyframes navLinkFade{
+	from {
+		opacity: 0;
+		transform: translateX(50px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0px);
+	}
+}
+
+.toggle .line1 {
+	transform: rotate(-45deg) translate(-5px,5px);
+}
+.toggle .line2 {
+	opacity: 0;
+	
+}
+.toggle .line3 {
+	transform: rotate(45deg) translate(-5px, -5px);
+}
+
+
+

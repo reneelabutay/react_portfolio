@@ -1,0 +1,258 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+	font-family: 'Libre Franklin';
+	font-weight: 200;
+	font-size: 16px;
+	line-height: 150%;
+}
+
+.page-body {
+	margin-top: 5%;
+	margin-bottom: 5%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.page-title {
+	font-family: 'Open Sans';
+	font-size: 32px;
+	font-weight: bold;
+	padding-bottom: 12px;
+}
+
+p {
+	margin-bottom: 16px;
+}
+
+/*******************/
+/***  HOME PAGE  ***/
+/*******************/
+
+.home-title {
+	font-family: 'Open Sans';
+	font-weight: bold;
+	font-size: 48px;
+	padding-left: 8px;
+}
+
+.main-body {
+	display: flex;
+	align-items: center;
+	padding: 24px;
+}
+.main-body div {
+	flex: 1 1 0;
+	height: 100%
+}
+
+.left-side {
+	margin: 0, auto;
+}
+.right-side {
+	margin: 0 auto;
+	padding-left: 16px;
+}
+
+.main-body > div > img {
+	max-width: 100%;
+	height:auto;
+}
+
+.main-body > div > p {
+	padding-left:10px;
+}
+
+/*******************/
+/***  PROJECTS   ***/
+/*******************/
+
+.project-row {
+	display: block;
+	clear:both;
+	text-align: center;
+}
+
+.project-item {
+	display: inline-block;
+	width: 45%;
+	margin:20px;
+	background-color: #f6f5f0;
+	box-shadow:10px 10px 10px grey;
+}
+
+/*Project Description*/
+.project-item p {
+	padding: 25px;
+	padding-top:0px;
+	text-align: left;
+	background-color: white;
+
+}
+
+.project-item h3 {
+	font-family: 'Open Sans';
+	font-weight: bold;
+	text-transform: uppercase;
+	background-color: white;
+	
+}
+
+
+/*
+.projects-body > div {
+	display: block;
+	width: 100%;
+	height: auto;
+	padding: 12px;
+	border: 1px solid black;
+	background-color: #c7c7bb
+}
+
+.container {
+	display: flex;
+}
+.container > div {
+	padding: 10px;
+}
+*/
+/*********************/
+/***  PHOTOGRAPHY  ***/
+/*********************/
+
+.photo-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	margin: 0 auto;
+
+}
+.photo-row > div{
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+  margin:auto;
+}
+
+.photo-row > div > img {
+  margin-top: 8px;
+  vertical-align: middle;
+  width: 100%;
+  cursor:pointer;
+}
+
+/* Responsive layout - turns 4 columns into 3 columns then 2 columns */
+@media screen and (max-width: 1100px) {
+  .photo-row > div {
+    flex: 30%;
+    max-width: 30%;
+  }
+}
+@media screen and (max-width: 850px) {
+  .photo-row > div {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other 
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}*/
+
+/*adding modal background*/
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	padding: 100px; 
+	top:0;
+	left:0;
+	height: 100%;
+	width: 100%;
+	background-color: #000000;
+	background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+	/*horizontal and vertically aligns the image*/
+	position: relative;
+	top:50%;
+	left:50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	width: 56%;
+	max-width: 700px; 
+}
+
+/*******************/
+/****  VIDEOS   ****/
+/*******************/
+
+.video-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+
+}
+
+.video-item {
+	flex:50%;
+	max-width: 50%;
+	margin: 20px;
+	text-align: center;
+}
+
+.video-item iframe {
+	flex:50%;
+	margin: 0 auto;
+}
+.video-item p {
+	padding-top: 8px;
+	letter-spacing: 3px;
+}
+
+/*Adding Responsiveness to video page*/
+@media screen and (max-width: 1000px) {
+  .video-container {
+  	flex-direction: column;
+  	justify-content: space-between;
+  }
+  .video-item {
+  	flex:80%;
+  }
+  .video-item iframe {
+  	width: 100%;
+  	height: 100%;
+  }
+}
+
+/*********************************/
+/****  "BACK TO TOP" BUTTON   ****/
+/*********************************/
+.go-to-top {
+    position: fixed;
+    bottom: 56px;
+    right: 48px;
+    text-decoration: none;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+    text-transform: uppercase;
+    font-size: 16px;
+    padding: 10px;
+    margin: 0;
+}
+
+.go-to-top:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-decoration: none;
+}
+
+
+
