@@ -40,6 +40,24 @@ export class GuestBook extends Component {
 			message: this.state.message,
 			timestamp: new Date().toLocaleString(),
 		}
+
+		var errors = [];
+
+		if (item.description.length >= 100) {
+			errors.push("Description must be shorter than 100 characters.");
+		}
+		if (item.message.length <= 15 || item.message.length >= 500) {
+			errors.push("Message must be shorter than 15 characters and ");
+		} else if (item.message.length === 0 ) {
+			errors.push("Message is required.");
+		}
+		if (errors.length > 0) {
+			console.log(errors.length)
+			alert("MESSAGE CANNOT BE SUBMITTED...\n".concat(errors.join("\n")))
+			return;
+		}
+		
+		
 		dataRef.push(item);
 		this.setState({
 			name: '',
@@ -86,11 +104,13 @@ export class GuestBook extends Component {
 						<form onSubmit={this.handleSubmit}>
 							<p>
 								<label>Your Name </label>
-								<input type="text" name="name" onChange={this.handleChange} value={this.state.name} required></input>
+								<input type="text" name="name" pattern=".{6,20}"
+								onChange={this.handleChange} value={this.state.name} 
+								required title="Name must be longer than 5 characters and less than 20 characters."></input>
 							</p>
 							<p className="full">
 								<label>Short Description of Yourself</label>
-								<textarea name="description" rows="2" maxLength="100" placeholder="Optional"
+								<textarea name="description" rows="2" placeholder="Optional" maxLength={100}
 								onChange={this.handleChange} value={this.state.description}></textarea>
 							</p>
 							<p>

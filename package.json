@@ -9,9 +9,12 @@
     "@testing-library/user-event": "^7.2.1",
     "firebase": "^7.14.3",
     "react": "^16.13.1",
+    "react-animations": "^1.0.0",
+    "react-character-counter": "^1.0.1",
     "react-dom": "^16.13.1",
     "react-player": "^2.0.0",
     "react-scripts": "3.4.1",
+    "react-textarea-count": "^1.0.3",
     "simple-react-lightbox": "^2.7.3-2"
   },
   "scripts": {

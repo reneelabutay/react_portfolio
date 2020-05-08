@@ -342,3 +342,6 @@ p {
 	letter-spacing: 3px;
 	cursor: pointer;
 }
+.submit-button:hover {
+	background-color: #d7d8d2;
+}
