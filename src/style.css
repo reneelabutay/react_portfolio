@@ -99,24 +99,6 @@ p {
 	
 }
 
-
-/*
-.projects-body > div {
-	display: block;
-	width: 100%;
-	height: auto;
-	padding: 12px;
-	border: 1px solid black;
-	background-color: #c7c7bb
-}
-
-.container {
-	display: flex;
-}
-.container > div {
-	padding: 10px;
-}
-*/
 /*********************/
 /***  PHOTOGRAPHY  ***/
 /*********************/
@@ -275,11 +257,11 @@ p {
 	text-align: left;
 	padding: 0 0 12px 0;
 }
+/*Guest Form - Left Side*/
 .guest-form {
 	box-sizing: border-box;
 	position: sticky;
 }
-
 .guest-form > form > p > label  {
 	display:block;
 	font-weight: 500;
@@ -287,32 +269,28 @@ p {
 	padding-bottom: 8px;
 	
 }
-
 .guest-form > form > p {
 	margin:0;
 	padding-bottom: 16px;
 }
 
-.full > button, form > p > input, .full > textarea{
+form > p > button, form > p > input, form > p > textarea{
 	width: 100%;
 	padding:1em;
 	border:1px solid #5f7782;
 } 
 
-
+/*Guest Book Display - Right Side*/
 .guest-book-display > ul {
 	list-style: none;
     overflow-y:scroll; 
     position:relative;
     height: 680px;
 }
-
 .guest-book-display > ul > li {
 	text-align: left;
-	 /*border:1px solid #5f7782;*/
 	padding: 8px;
 	margin: 0 0 16px 0;
-	/*background-color: #e3e4e0;*/
 	background-color:#e3e4e0;
 	color: #515151;
 	box-shadow: 5px 5px 5px #d3d3d3;
@@ -320,7 +298,6 @@ p {
 .guest-book-display > ul > li > p {
 	margin-bottom: 0px;
 }
-
 .guest-name {
 	font-weight: bold;
 	font-size: 20px;

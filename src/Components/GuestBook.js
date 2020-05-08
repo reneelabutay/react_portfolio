@@ -1,10 +1,5 @@
-import React, { Component } from 'react';
-//import firebase from 'firebase'
-import firebase from '../firebase'
-// get a reference to firebase
-// const firebase = require('firebase') 
-
-
+import React, { Component } from 'react'
+import firebase from '../firebase';
 
 export class GuestBook extends Component {
 	// this is the way to save the data to the state of your 
@@ -40,24 +35,20 @@ export class GuestBook extends Component {
 			message: this.state.message,
 			timestamp: new Date().toLocaleString(),
 		}
-
+		// Error Handler
 		var errors = [];
-
 		if (item.description.length >= 100) {
 			errors.push("Description must be shorter than 100 characters.");
 		}
 		if (item.message.length <= 15 || item.message.length >= 500) {
 			errors.push("Message must be shorter than 15 characters and ");
-		} else if (item.message.length === 0 ) {
-			errors.push("Message is required.");
-		}
+		} 
 		if (errors.length > 0) {
 			console.log(errors.length)
 			alert("MESSAGE CANNOT BE SUBMITTED...\n".concat(errors.join("\n")))
 			return;
 		}
-		
-		
+
 		dataRef.push(item);
 		this.setState({
 			name: '',
@@ -85,7 +76,6 @@ export class GuestBook extends Component {
 						timestamp: data[item].timestamp
 					});
 				}
-				
 			}
 			this.setState({
 				data: newState
@@ -102,23 +92,23 @@ export class GuestBook extends Component {
 					<div className="guest-form">
 						<h2 className="page-title">Leave me a message!</h2>
 						<form onSubmit={this.handleSubmit}>
-							<p>
+							<p className="enter-name">
 								<label>Your Name </label>
 								<input type="text" name="name" pattern=".{6,20}"
 								onChange={this.handleChange} value={this.state.name} 
 								required title="Name must be longer than 5 characters and less than 20 characters."></input>
 							</p>
-							<p className="full">
+							<p className="enter-bio">
 								<label>Short Description of Yourself</label>
 								<textarea name="description" rows="2" placeholder="Optional" maxLength={100}
 								onChange={this.handleChange} value={this.state.description}></textarea>
 							</p>
-							<p>
+							<p className="enter-email">
 								<label>Email </label>
 								<input type="email" name="email" placeholder="Optional"
 								onChange={this.handleChange} value={this.state.email}></input>
 							</p>
-							<p className="full">
+							<p className="enter-viewable">
 								<label for="viewable">Would you like your message to be viewable by other guests?</label>
 								<select required id="viewable" name="viewable" onChange={this.handleChange} value={this.state.viewable}>
 									<option value="">-Select-</option>
@@ -127,12 +117,12 @@ export class GuestBook extends Component {
 								</select>
 							</p>
 							
-							<p className="full">
+							<p className="enter-message">
 								<label>Message </label>
 								<textarea name="message" rows="3" required 
 								onChange={this.handleChange} value={this.state.message}></textarea>
 							</p>
-							<p className="full">
+							<p className="submit">
 								<button className="submit-button">Submit</button>
 							</p>
 						</form>
