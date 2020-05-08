@@ -3,6 +3,7 @@ import Home from './Home'
 import Projects from './Projects'
 import Photography from './Photography'
 import Recipes from './Recipes'
+import GuestBook from './GuestBook'
 
 
 
@@ -18,6 +19,8 @@ export class Body extends Component {
 			return <Photography/>
 		else if (activeTab==4)
 			return <Recipes/>
+		else if (activeTab==5)
+			return <GuestBook/>
 		else 
 			return <Home/>
 

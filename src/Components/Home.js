@@ -10,7 +10,7 @@ export class Home extends Component {
 				<div className="page-body">
 				<div className="main-body">
 					<div className="left-side">
-						<img src={require('./images/self.jpg')}/>
+						<img src={require('./images/self.jpg')} alt='Photo of Myself'/>
 
 					</div>
 					<div className="right-side">

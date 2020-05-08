@@ -254,5 +254,91 @@ p {
     text-decoration: none;
 }
 
+/***********************/
+/****  GUEST BOOK   ****/
+/***********************/
+
+.guest-book-body {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	/*align-items: ;*/
+}
+.guest-book-body > div {
+	flex:50%;
+	max-width: 50%;
+	margin: 8px;
+	text-align: center;
+	padding: 0 24px;
+}
+.guest-book-body > div > h2 {
+	text-align: left;
+	padding: 0 0 12px 0;
+}
+.guest-form {
+	box-sizing: border-box;
+	position: sticky;
+}
+
+.guest-form > form > p > label  {
+	display:block;
+	font-weight: 500;
+	text-align: left;
+	padding-bottom: 8px;
+	
+}
+
+.guest-form > form > p {
+	margin:0;
+	padding-bottom: 16px;
+}
+
+.full > button, form > p > input, .full > textarea{
+	width: 100%;
+	padding:1em;
+	border:1px solid #5f7782;
+} 
 
 
+.guest-book-display > ul {
+	list-style: none;
+    overflow-y:scroll; 
+    position:relative;
+    height: 680px;
+}
+
+.guest-book-display > ul > li {
+	text-align: left;
+	 /*border:1px solid #5f7782;*/
+	padding: 8px;
+	margin: 0 0 16px 0;
+	/*background-color: #e3e4e0;*/
+	background-color:#e3e4e0;
+	color: #515151;
+	box-shadow: 5px 5px 5px #d3d3d3;
+}
+.guest-book-display > ul > li > p {
+	margin-bottom: 0px;
+}
+
+.guest-name {
+	font-weight: bold;
+	font-size: 20px;
+}
+.guest-bio {
+	font-size: 14px;
+	font-style: italic;
+	padding-bottom: 8px;
+}
+.guest-timestamp {
+	font-size: 12px;
+	padding-top: 16px;
+	color: #696969;
+}
+.submit-button {
+	background-color: #e3e4e0;
+	text-transform: uppercase;
+	font-weight: bolder;
+	letter-spacing: 3px;
+	cursor: pointer;
+}
