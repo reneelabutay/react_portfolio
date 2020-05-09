@@ -280,14 +280,26 @@ form > p > button, form > p > input, form > p > textarea{
 	border:1px solid #5f7782;
 } 
 
+.submit-button {
+	background-color: #e3e4e0;
+	text-transform: uppercase;
+	font-weight: bolder;
+	letter-spacing: 3px;
+	cursor: pointer;
+	padding: 0 16px;
+}
+.submit-button:hover {
+	background-color: #d7d8d2;
+}
+
 /*Guest Book Display - Right Side*/
-.guest-book-display > ul {
+.guest-book-display > div > ul {
 	list-style: none;
     overflow-y:scroll; 
     position:relative;
     height: 680px;
 }
-.guest-book-display > ul > li {
+.guest-book-display > div > ul > li {
 	text-align: left;
 	padding: 8px;
 	margin: 0 0 16px 0;
@@ -295,7 +307,7 @@ form > p > button, form > p > input, form > p > textarea{
 	color: #515151;
 	box-shadow: 5px 5px 5px #d3d3d3;
 }
-.guest-book-display > ul > li > p {
+.guest-book-display > div > ul > li > p {
 	margin-bottom: 0px;
 }
 .guest-name {
@@ -312,13 +324,4 @@ form > p > button, form > p > input, form > p > textarea{
 	padding-top: 16px;
 	color: #696969;
 }
-.submit-button {
-	background-color: #e3e4e0;
-	text-transform: uppercase;
-	font-weight: bolder;
-	letter-spacing: 3px;
-	cursor: pointer;
-}
-.submit-button:hover {
-	background-color: #d7d8d2;
-}
+

@@ -1,5 +1,16 @@
 import React, { Component } from 'react'
 import firebase from '../firebase';
+import { motion, useAnimation } from "framer-motion"
+
+const guestFormVariants = {
+	open: {opacity: 1, x:0},
+	closed: {opacity: 0, x:-200},
+}
+
+const guestPostVariants = {
+	open: {opacity: 1, x:0},
+	closed: {opacity: 0, x:200},
+}
 
 export class GuestBook extends Component {
 	// this is the way to save the data to the state of your 
@@ -83,7 +94,6 @@ export class GuestBook extends Component {
 		});
 	}
 	
-
 	render() {
 		return(
 			<div>
@@ -91,7 +101,11 @@ export class GuestBook extends Component {
 				<div className="guest-book-body">
 					<div className="guest-form">
 						<h2 className="page-title">Leave me a message!</h2>
+						<motion.div initial="closed" animate="open" variants={guestFormVariants}
+								transition={{ duration: 0.75 }}>
+							
 						<form onSubmit={this.handleSubmit}>
+							
 							<p className="enter-name">
 								<label>Your Name </label>
 								<input type="text" name="name" pattern=".{6,20}"
@@ -122,34 +136,41 @@ export class GuestBook extends Component {
 								<textarea name="message" rows="3" required 
 								onChange={this.handleChange} value={this.state.message}></textarea>
 							</p>
-							<p className="submit">
+							<motion.button 
+								whileHover={{scale:1.1}}
+								whileTap={{scale:0.9}}>
+							<div className="enter-submit">
 								<button className="submit-button">Submit</button>
-							</p>
+							</div>
+							</motion.button>
 						</form>
+						</motion.div>
 					</div>
 					<div className="guest-book-display">
 						<h2 className="page-title">Messages</h2>
+						<motion.div initial="closed" animate="open" variants={guestPostVariants}
+								transition={{ duration: 0.75 }}>
 						<ul>
 							{this.state.data.map((item) => {
 								return (
-									<li key={item.id}>
+									
+									<li className="indPost" key={item.id}>
 										<p className="guest-name">{item.name}</p>
 										<p className="guest-bio">{item.description}</p>
 										<p className="guest-message">{item.message}</p>
 										<p className="guest-timestamp">{item.timestamp}</p>
 									</li>
+									
 								)
 							})}
 						</ul>
+						</motion.div>
 
 					</div>
 				</div>
-				</div>
-				
-				
+				</div>	
 			</div>
 		); 
-			
 		
 	}
 }
