@@ -7,10 +7,6 @@ import TabList from './Components/TabList';
 import ScrollToTop from './Components/ScrollToTop';
 import SimpleReactLightbox from 'simple-react-lightbox';
 import HamburgerMenu from './Components/HamburgerMenu';
-//import config from './config'
-//get a reference to firebase
-//const firebase = require('firebase')
-
 
 
 export class App extends Component {
@@ -18,7 +14,7 @@ export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			activeTab: 1,
+			activeTab: 6,
 		}
 		this.changeTab = (id) => {
 			this.setState({
@@ -49,7 +45,12 @@ export class App extends Component {
 	  	{
 	  		id:5,
 	  		title: 'Guest Book'
-	  	}
+		}, 
+		{
+			id:6,
+			title: 'Movies'
+		}
+		  
 	  	]
 	    return (
 	    	<div className="body">

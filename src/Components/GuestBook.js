@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import firebase from '../firebase';
+import firebase from '../firebase'
 import { motion, useAnimation } from "framer-motion"
 
 const guestFormVariants = {
