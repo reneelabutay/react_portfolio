@@ -4,12 +4,11 @@ import Projects from './Projects'
 import Photography from './Photography'
 import Recipes from './Recipes'
 import GuestBook from './GuestBook'
-import Movies from './Movies'
+import MovieGallery from './MovieGallery'
 
 
 
 export class Body extends Component {
-  	
 	displayContent = () => {
 		var activeTab = this.props.activeTab
 		if(activeTab===1)
@@ -23,10 +22,9 @@ export class Body extends Component {
 		else if (activeTab===5)
 			return <GuestBook/>
 		else if (activeTab===6)
-			return <Movies/>
+			return <MovieGallery/>
 		else 
 			return <Home/>
-
 	}
   	render() {
 	    return (

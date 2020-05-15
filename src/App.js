@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './App.css';
-import './style.css';
-import './nav-bar.css';
-import Body from './Components/Body';
-import TabList from './Components/TabList';
-import ScrollToTop from './Components/ScrollToTop';
-import SimpleReactLightbox from 'simple-react-lightbox';
-import HamburgerMenu from './Components/HamburgerMenu';
+import React, { Component } from 'react'
+import './App.css'
+import './style.css'
+import './nav-bar.css'
+import Body from './Components/Body'
+import TabList from './Components/TabList'
+import ScrollToTop from './Components/ScrollToTop'
+import SimpleReactLightbox from 'simple-react-lightbox'
+import HamburgerMenu from './Components/HamburgerMenu'
 
 
 export class App extends Component {
@@ -65,7 +65,7 @@ export class App extends Component {
 	    			</div>
 	    		</div>
 	    		
-	    		<div className="main-body">
+	    		<div className="main-body-content">
 	    			<Body activeTab={this.state.activeTab}/>
 	    		</div>
 
