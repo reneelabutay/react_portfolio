@@ -36,7 +36,7 @@ export class Movie extends Component {
     render() {
         return(
             <div className="movie-card">
-                <Popup modal trigger={<img src={this.state.poster}/>}>
+                <Popup modal trigger={<img src={this.state.poster}/>} lockScroll>
                 {close => ( 
                     <div className="active-movie">
                         <a className="close" onClick={close}>
