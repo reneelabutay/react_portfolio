@@ -325,3 +325,19 @@ form > p > button, form > p > input, form > p > textarea{
 	color: #696969;
 }
 
+/**************************/
+/****  MOVIE GALLERY   ****/
+/**************************/
+
+.movie-body {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.movie-card {
+	cursor: pointer;
+}
+.movie-card > img:hover {
+	opacity: 0.6;
+}

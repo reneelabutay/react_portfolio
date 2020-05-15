@@ -1,59 +1,44 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import MovieData from '../MovieData.json'
-import Movies from './Movies';
-// import Movie from './Movie'
-
-const movieIDs = ["tt0454921", "tt0319343", "tt0454921", "tt0454921","tt0454921",
-"tt0454921", "tt0454921", "tt0454921"]
+import Popup from "reactjs-popup"
 
 export class MovieGallery extends Component {
    
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            activeMovie: '',
-            data: []
+            title: '',
+            year: '',
+            director: '',
+            poster: '',
+            imdbRating: '',
+            plot: '',
+            rated: '',
         }
- 
     }
- 
     componentDidMount() {
-        //get the data and then push it onto movieData []
-        var movieData = this.collectMovieData();
-        //console.log(this.state.movieData)
-        
-        //display movie gallery
-        this.displayGallery(movieData);
+        //collect the movie data
+        axios.get('http://www.omdbapi.com/?apikey=cd9efcf2&i=' + this.props.id)
+        .then (response => {
+            this.setState({
+                title: response.data.Title,
+                year: response.data.Year,
+                director: response.data.Director,
+                poster: response.data.Poster,
+                imdbRating: response.data.imdbRating,
+                plot: response.data.Plot,
+                rated: response.data.Rated,
+            })     
+        }) 
     }
-    
-    collectMovieData() {
-        let movieData = [...this.state.data];
-        for (var i = 0; i < movieIDs.length; i++) {
-            axios.get('http://www.omdbapi.com/?apikey=cd9efcf2&i=' + movieIDs[i])
-            .then (function (response) {
-                movieData.push(response.data);
-            })
-        }
-        this.setState({data: movieData});
-        return movieData;
-
-    }
-
-    displayGallery(movdata) {
-        //use the movieData[] to display the posters
-        console.log("in display Gallery")
-        console.log(movdata)
-        movdata && movdata.map((movie) => {
-            return <img alt="poster" src={movie.Poster}/>
-        })
-    }
-
-    
     render() {
-        console.log("testing Movie Gallery")
         return(
-            <p>hi</p>
+          
+            <div className="movie-card">
+                <img src={this.state.poster}></img>
+            </div>
+            
+           
         )
     }
 
