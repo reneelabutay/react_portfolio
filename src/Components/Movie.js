@@ -19,7 +19,7 @@ export class Movie extends Component {
     }
     componentDidMount() {
         //collect the movie data
-        axios.get('http://www.omdbapi.com/?apikey=cd9efcf2&i=' + this.props.id)
+        axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + this.props.id)
         .then (response => {
             this.setState({
                 title: response.data.Title,
