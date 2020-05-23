@@ -34,7 +34,6 @@ export class ScrollToTop extends Component {
 		});
 	}
 
-
 	render() {
 		const {visible} = this.state;
 	    return (

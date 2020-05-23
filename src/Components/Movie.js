@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Popup from 'reactjs-popup'
 
-
 export class Movie extends Component {
    
     constructor(props) {

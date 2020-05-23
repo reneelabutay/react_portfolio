@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { slide as Menu } from 'react-burger-menu'
 
 export class HamburgerMenu extends Component {
+
+	
   render() {
   	return (
   		<Menu>

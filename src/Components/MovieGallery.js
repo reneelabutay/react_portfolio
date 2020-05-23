@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Movie from './Movie'
+import firebase from '../firebase'
 
 
 export class MovieGallery extends Component {
@@ -14,7 +15,22 @@ export class MovieGallery extends Component {
         return(
             <div> 
 	    		<div className="page-body">
-					<h2 className="page-title">My Favorite Movies</h2>
+
+					<form className="movie-search">
+						<p className="search-movie">
+								<input type="text" name="searchMovie" placeholder="Search for a Movie..."></input>
+								<button type="submit" className="movie-search-button"><i class="fa fa-search"></i></button>
+						</p>
+					</form>
+					<form className="add-movie">
+						<p className="add-movie">
+							<h3>Add a Movie</h3>
+							<label>Enter IMDbID</label>
+							<input type="text" name="movie-id"></input>
+						</p>
+					</form>
+
+					<h2 className="page-title">Movie Gallery</h2>
 					<div className="movie-body">
 						{this.state.movieIDs.map((movie) => {
 							return <Movie id={movie}/>

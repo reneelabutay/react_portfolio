@@ -349,6 +349,59 @@ form > p > button, form > p > input, form > p > textarea{
 	border: 1px solid #cfcece;
 }
 
-.modal-popup{
-	overflow: hidden;
+/*SEARCH BAR*/
+.search-movie {
+	width: 100%;
+	position: relative;
+	display: flex;
 }
+.search-movie > input {
+	width: 100%;
+	border: 3px solid #00B4CC;
+	border-right: none;
+	padding: 5px;
+	height: 20px;
+	border-radius: 5px 0 0 5px;
+	outline: none;
+	color: #9DBFAF;
+}
+
+.search-movie > input:focus {
+	color: #00B4CC;
+}
+
+.movie-search-button {
+	width: 40px;
+	height: 36px;
+	border: 1px solid #00B4CC;
+	background: #00B4CC;
+	text-align: center;
+	color: #fff;
+	border-radius: 0 5px 5px 0;
+	cursor: pointer;
+	font-size: 20px;
+}
+/*
+form.movie-search .searchMovie {
+	width: 100%;
+	border: 3px solid #00B4CC;
+	border-right: none;
+	padding: 5px;
+	height: 20px;
+	border-radius: 5px 0 0 5px;
+	outline: none;
+	color: #9DBFAF;
+  }
+
+  form.movie-search button {
+	float: left;
+	width: 20%;
+	padding: 10px;
+	background: #5f7782;
+	color: white;
+	font-size: 17px;
+	border: 1px solid grey;
+	border-left: none; /* Prevent double borders 
+	cursor: pointer;
+  }*/
+  
