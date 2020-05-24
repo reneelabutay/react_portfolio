@@ -122,7 +122,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
   transform: translateX(100%);
 }
 
-
 /* Adding Responsiveness */
 @media screen and (max-width: 1096px) {
 	.nav-links {

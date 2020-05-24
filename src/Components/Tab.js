@@ -7,7 +7,10 @@ export class Tab extends Component {
 		} else {
 			return {backgroundColor: '#5f7782'}
 		}
+
 	}
+
+	
 
 	render() {
 	    return (

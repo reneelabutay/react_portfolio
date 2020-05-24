@@ -18,7 +18,9 @@ export class Movie extends Component {
     }
     componentDidMount() {
         //collect the movie data
-        axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + this.props.id)
+        //console.log("props id:")
+        //console.log(this.props.id.movieID)
+        axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + this.props.id.movieID)
         .then (response => {
             this.setState({
                 title: response.data.Title,
@@ -29,10 +31,12 @@ export class Movie extends Component {
                 plot: response.data.Plot,
                 rated: response.data.Rated,
             })     
-        }) 
+        })
     }
+
     
     render() {
+        
         return(
             <div className="movie-card">
                 <Popup modal trigger={<img src={this.state.poster}/>} lockScroll>
@@ -50,6 +54,7 @@ export class Movie extends Component {
                             <p className="plot">{this.state.plot}</p>
                             <p className="rated">Rated {this.state.rated}</p>
                             <p className="imdb-rating">&#9733; IMDB Rating {this.state.imdbRating}</p>
+                            <button className="delete-movie-button">Delete Movie</button>
                         </div>
                         
                     </div>

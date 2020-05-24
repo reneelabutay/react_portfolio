@@ -293,7 +293,6 @@ form > p > button, form > p > input, form > p > textarea{
 /**************************/
 /****  MOVIE GALLERY   ****/
 /**************************/
-
 .movie-body {
 	display: flex;
 	flex-wrap: wrap;
@@ -301,7 +300,7 @@ form > p > button, form > p > input, form > p > textarea{
 }
 
 .movie-card {
-	padding: 0 4px;
+	padding: 4px;
 	cursor: pointer;
 }
 .movie-card > img:hover {
@@ -310,7 +309,6 @@ form > p > button, form > p > input, form > p > textarea{
 
 
 /* Modal Content for Movies */
-
 .active-movie {
 	display:flex;
 	align-items: center;
@@ -335,6 +333,12 @@ form > p > button, form > p > input, form > p > textarea{
 .movie-content .imdb-rating {
 	font-weight: bolder;
 }
+.movie-content .plot {
+	font-size: 14px;
+}
+.active-movie {
+	cursor: auto;
+}
 .active-movie > .close {
 	cursor: pointer;
 	position: absolute;
@@ -351,35 +355,73 @@ form > p > button, form > p > input, form > p > textarea{
 
 /*SEARCH BAR*/
 .search-movie {
-	width: 100%;
+	width: 50%;
 	position: relative;
 	display: flex;
 }
 .search-movie > input {
 	width: 100%;
-	border: 3px solid #00B4CC;
+	border: 3px solid #5f7782;
 	border-right: none;
 	padding: 5px;
-	height: 20px;
+	height: 50px;
 	border-radius: 5px 0 0 5px;
 	outline: none;
-	color: #9DBFAF;
+	font-weight: bolder;
+	color: black;
 }
-
 .search-movie > input:focus {
-	color: #00B4CC;
+	color: #5f7782;
 }
-
 .movie-search-button {
-	width: 40px;
-	height: 36px;
-	border: 1px solid #00B4CC;
-	background: #00B4CC;
+	width: 50px;
+	height: 50px;
+	border: 3px solid #5f7782;
+	background: #5f7782;
 	text-align: center;
 	color: #fff;
 	border-radius: 0 5px 5px 0;
 	cursor: pointer;
 	font-size: 20px;
+	padding: 0;
+}
+.add-movie-form > label {
+	font-weight: bolder;
+	font-size: 20px;
+}
+.add-movie {
+	width: 100%;
+	position: relative;
+	display: flex;
+}
+.add-movie > input {
+	width: 100%;
+	border: 3px solid #5f7782;
+	border-left: none;
+	padding: 5px;
+	height: 50px;
+	border-radius: 0 5px 5px 0;
+	outline: none;
+	font-weight: bolder;
+	color: black;
+}
+.add-movie-button {
+	width: 50px;
+	height: 50px;
+	border: 3px solid #5f7782;
+	background: #5f7782;
+	text-align: center;
+	color: #fff;
+	border-radius: 5px 0 0 5px;
+	cursor: pointer;
+	font-size: 20px;
+	padding: 0;
+}
+.delete-movie-button {
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 12px;
+	cursor: pointer;
 }
 /*
 form.movie-search .searchMovie {
