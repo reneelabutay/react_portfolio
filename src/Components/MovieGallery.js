@@ -5,16 +5,6 @@ import axios from 'axios'
 import { FaSearch } from 'react-icons/fa'
 import { MdAddCircle } from 'react-icons/md'
 
-/*
-            title: '',
-            year: '',
-            director: '',
-            poster: '',
-            imdbRating: '',
-            plot: '',
-            rated: '',
-            movieID: ''
-*/
 export class MovieGallery extends Component {
 	constructor(){
 		super();
@@ -27,7 +17,7 @@ export class MovieGallery extends Component {
 			plot: '',
 			rated: '',
 			searchTerm: '',
-			movie_list: [] // all the movie data from firebase
+			movie_list: [] // state of ALL MOVIES from firebase data
 			// movieIDs: ["tt4501244", "tt3104988", "tt1570728", "tt5164432", "tt1632708",
 			// "tt1045658", "tt1638002", "tt1564367", "tt7374948"]
 		}
@@ -116,34 +106,42 @@ export class MovieGallery extends Component {
 
 	handleSearchMovie(e) {
 		e.preventDefault();
-		const searchWord = this.state.searchTerm.toString();
+		const searchWord = this.state.searchTerm;
 		console.log("in search, this is searchWord...")
 		console.log(searchWord)
 		
 		const dataRef = firebase.database().ref('MovieList');
 		dataRef.on('value', (snapshot) => {
 			let movie_list = snapshot.val();
-			console.log("movie_list...")
+			console.log("movie_list (from firebase)...")
 			console.log(movie_list)
-			let newState = [];
+			let searchItems = [];
 			for(let item in movie_list) {
 				console.log(movie_list[item].title)
 				console.log(searchWord)
-				let currentTitle = movie_list[item].title;
-				if(typeof currentTitle === 'string' && typeof searchWord === 'string') {
-					console.log("both are strings")
-				}
-				//if(currentTitle == searchWord.toLowerCase()) {
-				if(currentTitle.localeCompare(searchWord)) {
-					newState.push({
+				let currentTitle = movie_list[item].title
+				//if(typeof currentTitle === 'string' && typeof searchWord === 'string') {
+				//	console.log("both are strings")
+				//}
+				if(currentTitle === searchWord) {
+					console.log("FOUND ITEM!")
+					searchItems.push({
 						movieID: movie_list[item].movieID,
-						title: movie_list[item].title
+						title: movie_list[item].title,
+						director: movie_list[item].director,
+						poster: movie_list[item].poster,
+						imdbRating: movie_list[item].imdbRating,
+						plot: movie_list[item].plot,
+						rated: movie_list[item].rated,
 					});
 					break;
 				}
 			}
-			console.log("newState after loop..")
-			console.log(newState)
+			//console.log("searchItem after loop..")
+			//console.log(searchItem)
+			this.setState({
+				movie_list: searchItems
+			})
 		})
 		//console.log(this.state.movie_list)
 		//go through each id
@@ -160,7 +158,12 @@ export class MovieGallery extends Component {
 			for(let item in movie_list) {
 				newState.push({ 
 					movieID: movie_list[item].movieID,
-					title: movie_list[item].title
+					title: movie_list[item].title, 
+					director: movie_list[item].director,
+					poster: movie_list[item].poster,
+					imdbRating: movie_list[item].imdbRating,
+					plot: movie_list[item].plot,
+					rated: movie_list[item].rated,
 				});
 			}
 			this.setState({
@@ -168,9 +171,17 @@ export class MovieGallery extends Component {
 			});
 		});
 	}
-	
+	/*
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.movie_list !== this.state.movie_list) {
+			console.log("change has been made!")
+			//window.location.reload();
+		}
+	}*/
+
     render() {
-		console.log(this.state.searchTerm)
+		console.log("this.state.movie_list")
+		console.log(this.state.movie_list)
         return(
             <div> 
 	    		<div className="page-body">
@@ -196,6 +207,8 @@ export class MovieGallery extends Component {
 					<h2 className="page-title">Movie Gallery</h2>
 					<div className="movie-body">
 						{this.state.movie_list.map((movie) => {
+							console.log("this is the movie..")
+							console.log({movie})
 							return <Movie id={movie}/>
 						})}
 					</div>

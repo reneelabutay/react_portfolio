@@ -4,7 +4,6 @@ import Popup from 'reactjs-popup'
 import firebase from '../firebase'
 
 export class Movie extends Component {
-   
     constructor(props) {
         super(props);
         this.state = {
@@ -18,15 +17,15 @@ export class Movie extends Component {
             movieID: ''
         }
     }
+
     componentDidMount() {
         //collect the movie data
-        //console.log("props id:")
-        //console.log(this.props.id.movieID)
+        console.log("props id:")
+        console.log(this.props.id)
         const imdb_id = this.props.id.movieID
         const dataRef = firebase.database().ref('MovieList');
         dataRef.on('value', (snapshot) => {
             let movie_list = snapshot.val();
-            let newState = [];
             for(let item in movie_list) {
                 if(movie_list[item].movieID === imdb_id) {
                     this.setState({
@@ -42,21 +41,14 @@ export class Movie extends Component {
                 }
             }
         })
-        
-        /*axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + imdb_id)
-        .then (response => {
-            this.setState({
-                title: response.data.Title,
-                year: response.data.Year,
-                director: response.data.Director,
-                poster: response.data.Poster,
-                imdbRating: response.data.imdbRating,
-                plot: response.data.Plot,
-                rated: response.data.Rated,
-                movieID: imdb_id
-            })     
-        })*/
     }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps != this.props) {
+            this.componentDidMount();
+        }
+    }
+
     removeMovie(e) {
         console.log(this.state.movieID)
         console.log(this.state.title)
@@ -72,7 +64,8 @@ export class Movie extends Component {
     }
     
     render() {
-        
+        console.log("in movie.js")
+        console.log(this.state)
         return(
             <div className="movie-card">
                 <Popup modal trigger={<img src={this.state.poster}/>} lockScroll>
