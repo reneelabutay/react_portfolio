@@ -5,20 +5,35 @@ import axios from 'axios'
 import { FaSearch } from 'react-icons/fa'
 import { MdAddCircle } from 'react-icons/md'
 
-
+/*
+            title: '',
+            year: '',
+            director: '',
+            poster: '',
+            imdbRating: '',
+            plot: '',
+            rated: '',
+            movieID: ''
+*/
 export class MovieGallery extends Component {
 	constructor(){
 		super();
 		this.state = {
 			movieID: '',
 			title: '',
+			director: '',
+			poster: '',
+			imdbRating: '',
+			plot: '',
+			rated: '',
 			searchTerm: '',
-			movie_list: []
+			movie_list: [] // all the movie data from firebase
 			// movieIDs: ["tt4501244", "tt3104988", "tt1570728", "tt5164432", "tt1632708",
 			// "tt1045658", "tt1638002", "tt1564367", "tt7374948"]
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleAddMovie = this.handleAddMovie.bind(this);
+		this.handleSearchMovie = this.handleSearchMovie.bind(this);
 		
 	}
 	
@@ -27,124 +42,115 @@ export class MovieGallery extends Component {
 			[e.target.name]: e.target.value
 		});
 	}
-/*
-
-*//*
-	addMovie() {
-		//
-		
-		
-		//checks for duplicates
-		//var duplicates = false;
-		//dataRef.on('value', (snapshot) => {
-		//	let movie_list = snapshot.val();
-		//	for (let item in movie_list) {
-				//console.log("in loop")
-				//console.log(movie_list[item])
-				//console.log(movieItem.movieID)
-		//		if(movie_list[item].movieID ==  movieItem.movieID) {
-		//			duplicates = true;
-		//			break;
-		//		}
-		//	}
-	//	});
-		//pushes movie item to firebase 
-	//	if (duplicates) {
-	//		alert("ERROR: This movie has already been added. Try another one.");
-	//	} else {
-	//		dataRef.push(movieItem);
-	//		this.setState({
-	//			movieID:'',
-	//			title:'',
-	//			searchTerm:''
-	//		});
-	//		alert("Movie was successfully added!");
-	//	}
-	} */
 	
-	updateTitle(){
-		console.log("in updateTITLE...")
+	async loadMovieInfo(){
+		//console.log("in updateTITLE...")
 		const movieID = this.state.movieID;
-		//console.log("movie id:")
-		//console.log(movieID)
-		axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + movieID)
+		console.log("movie id:")
+		console.log(movieID)
+		await axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + movieID)
 		.then (response => {
-			console.log("in axios part")
+			//console.log("in axios part")
 			this.setState({
+				movieID: response.data.imdbID, 
 				title: response.data.Title,
+				year: response.data.Year,
+                director: response.data.Director,
+                poster: response.data.Poster,
+				imdbRating: response.data.imdbRating,
+				plot: response.data.Plot,
+                rated: response.data.Rated,
 			})
 			console.log(this.state.title) // printed
 		})
-
 	}
 
-	handleAddMovie(e) {
+	async handleAddMovie(e) {
 		e.preventDefault();
-		const dataRef = firebase.database().ref('MovieList');
-		console.log("in handle add movie")
-		
-		this.updateTitle();
-
-		const movieItem = {
-			movieID: this.state.movieID,
-			title: this.state.title
-		}
-		console.log("movie item....")
-		console.log(movieItem)
-		
+		await this.loadMovieInfo(); //figure out async 
+		const dataRef = firebase.database().ref('MovieList');		
 		//checks for duplicates
 		var duplicates = false;
 		dataRef.on('value', (snapshot) => {
 			let movie_list = snapshot.val();
 			for (let item in movie_list) {
-				console.log("in loop")
-				console.log(movie_list[item])
-				console.log(movieItem.movieID)
-				if(movie_list[item].movieID ==  movieItem.movieID) {
+				//console.log("in loop")
+				//console.log(movie_list[item])
+				//console.log(movieItem.movieID)
+				if(movie_list[item].movieID ==  this.state.movieID) {
 					duplicates = true;
 					break;
 				}
 			}
 		});
+		let movieItem = {
+			movieID: this.state.movieID,
+			title: this.state.title,
+			year: this.state.year,
+			director: this.state.director,
+			poster: this.state.poster,
+			imdbRating: this.state.imdbRating,
+			plot: this.state.plot,
+			rated: this.state.rated
+		}
+		console.log("movie item...")
+		console.log(movieItem)
 		//pushes movie item to firebase 
 		if (duplicates) {
 			alert("ERROR: This movie has already been added. Try another one.");
 		} else {
 			dataRef.push(movieItem);
 			this.setState({
-				movieID:'',
-				title:'',
-				searchTerm:''
+				movieID: '',
+				title: '',
+				director: '',
+				poster: '',
+				imdbRating: '',
+				plot: '',
+				rated: '',
+				searchTerm: '',
 			});
 			alert("Movie was successfully added!");
 		}
 	}	
-		
-		
-		
-		/*
+
+	handleSearchMovie(e) {
 		e.preventDefault();
-		const movieID = this.state.movieID;
-		console.log("movie id:")
-		console.log(movieID)
-		axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + movieID)
-		.then (response => {
-			console.log("in axios part")
-			this.setState({
-				title: response.data.Title,
-			})
-			//console.log(response.data)
-			//console.log(response.data.Title)
-			console.log(this.state.title) // printed
-		})	*/
-				
+		const searchWord = this.state.searchTerm.toString();
+		console.log("in search, this is searchWord...")
+		console.log(searchWord)
 		
-		//const movieID = this.state.movieID;
-		//console.log("movie id:")
-		//console.log(movieID)
-
-
-	
+		const dataRef = firebase.database().ref('MovieList');
+		dataRef.on('value', (snapshot) => {
+			let movie_list = snapshot.val();
+			console.log("movie_list...")
+			console.log(movie_list)
+			let newState = [];
+			for(let item in movie_list) {
+				console.log(movie_list[item].title)
+				console.log(searchWord)
+				let currentTitle = movie_list[item].title;
+				if(typeof currentTitle === 'string' && typeof searchWord === 'string') {
+					console.log("both are strings")
+				}
+				//if(currentTitle == searchWord.toLowerCase()) {
+				if(currentTitle.localeCompare(searchWord)) {
+					newState.push({
+						movieID: movie_list[item].movieID,
+						title: movie_list[item].title
+					});
+					break;
+				}
+			}
+			console.log("newState after loop..")
+			console.log(newState)
+		})
+		//console.log(this.state.movie_list)
+		//go through each id
+		//do an axios.get and get each title
+		//compare axios title with the desired movie
+		//axios.get('https://www.omdbapi.com/?apikey=cd9efcf2&i=' + movieID)
+	}
 
 	componentDidMount() {
 		const dataRef = firebase.database().ref('MovieList');
@@ -164,8 +170,7 @@ export class MovieGallery extends Component {
 	}
 	
     render() {
-		//console.log("movie_list:");
-		//console.log(this.state.movie_list);
+		console.log(this.state.searchTerm)
         return(
             <div> 
 	    		<div className="page-body">
@@ -179,15 +184,15 @@ export class MovieGallery extends Component {
 							onChange={this.handleChange} value={this.state.movieID}></input>
 						</p>
 					</form>
-					<form className="movie-searchbar">
+					<form className="movie-searchbar" onSubmit={this.handleSearchMovie}>
 						<p className="search-movie">
-								<input type="text" name="searchMovie" placeholder="Search for a Movie..."></input>
-								<button type="submit" className="movie-search-button" >
-									<FaSearch size={24}/>
-								</button>
+							<input type="text" name="searchTerm" placeholder="Search for a Movie..."
+							onChange={this.handleChange} value={this.state.searchTerm}></input>
+							<button type="submit" className="movie-search-button">
+								<FaSearch size={24}/>
+							</button>
 						</p>
 					</form>
-
 					<h2 className="page-title">Movie Gallery</h2>
 					<div className="movie-body">
 						{this.state.movie_list.map((movie) => {

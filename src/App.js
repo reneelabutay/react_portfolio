@@ -49,7 +49,6 @@ export class App extends Component {
 			id:6,
 			title: 'Movies'
 		}
-		  
 	  	]
 	    return (
 	    	<div className="body">
