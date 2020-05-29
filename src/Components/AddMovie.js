@@ -46,10 +46,20 @@ export class AddMovie extends Component {
 		})
 	}
 
+	async addtoALLMoviesList() {
+		const pairRef = firebase.database().ref('MovieListPairs');	
+		let pair = {
+			movieID: this.state.movieID,
+			listName: 'All'
+		}
+		pairRef.push(pair);
+		alert("added to movie list pair")
+	}
+
 	async handleAddMovie(e) {
 		e.preventDefault();
 		await this.loadMovieInfo(); //figure out async 
-		const dataRef = firebase.database().ref('MovieList');		
+		const dataRef = firebase.database().ref('MovieList');	
 		//checks for duplicates
 		var duplicates = false;
 		dataRef.on('value', (snapshot) => {
@@ -81,6 +91,7 @@ export class AddMovie extends Component {
 			alert("ERROR: This movie has already been added. Try another one.");
 		} else {
 			dataRef.push(movieItem);
+			await this.addtoALLMoviesList();
 			this.setState({
 				movieID: '',
 				title: '',
@@ -93,6 +104,7 @@ export class AddMovie extends Component {
 			});
 			alert("Movie was successfully added!");
 		}
+		
 	}	
 
 	
@@ -103,7 +115,7 @@ export class AddMovie extends Component {
                     <form className="add-movie-form" onSubmit={this.handleAddMovie}>
                         <label>Add a Movie to the Movie Gallery</label>
                         <p className="add-movie">
-                            <button type="submit" className="add-movie-button">
+                            <button type="submit" className="add-movie-button" id="create-list-add">
                                     <MdAddCircle size={24}/>
                             </button>
                             <input type="text" name="movieID" placeholder="Enter IMDb ID..."

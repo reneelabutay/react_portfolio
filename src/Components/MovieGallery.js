@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import Movie from './Movie'
 import firebase from '../firebase'
 import { FaSearch } from 'react-icons/fa'
-
+import AddMovie from './AddMovie'
 export class MovieGallery extends Component {
 	constructor(){
 		super();
 		this.state = {
 			searchTerm: '',
-			movie_list: [] // list of movies that will be displayed
+			movie_list: [], // list of movies that will be displayed
 			// movieIDs: ["tt4501244", "tt3104988", "tt1570728", "tt5164432", "tt1632708",
 			// "tt1045658", "tt1638002", "tt1564367", "tt7374948"]
+			customLists: []
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearchMovie = this.handleSearchMovie.bind(this);
@@ -52,6 +53,26 @@ export class MovieGallery extends Component {
 		})
 	}
 
+	showDropdownMenu(e) {
+		e.preventDefault();
+		//get the list names from firebase
+		//on render, map the values to a div
+		const dataRef = firebase.database().ref('Lists');
+		dataRef.on('value', (snapshot) => {
+			let lists = snapshot.val();
+			let newListEntry = [];
+			for (let item in lists) {
+				newListEntry.push({
+					listName: lists[item].listName,
+				})
+			}
+			this.setState({
+				customLists: newListEntry
+			})
+		});
+
+	}
+
 	componentDidMount() {
 		const dataRef = firebase.database().ref('MovieList');
 		dataRef.on('value', (snapshot) => {
@@ -77,7 +98,7 @@ export class MovieGallery extends Component {
 
     render() {
 		//console.log("this.state.movie_list")
-		//console.log(this.state.movie_list)
+		console.log(this.state.movie_list)
         return(
             <div> 
 	    		<div className="page-body">
@@ -91,13 +112,23 @@ export class MovieGallery extends Component {
 						</p>
 					</form>
 					<h2 className="page-title">Movie Gallery</h2>
-					<div>Menu of Lists</div>
+					<div>
+						<div className="drop-down-movie-list">
+							<button onClick="showDropdownMenu()">Select List</button>
+	
+						</div>
+					
+
+					</div>
 					<div className="movie-body">
 						{this.state.movie_list.map((movie) => {
 							//console.log("this is the movie..")
 							//console.log({movie})
 							return <Movie id={movie}/>
 						})}
+					</div>
+					<div>
+						<AddMovie/>
 					</div>
 				</div>
 	    	</div> 

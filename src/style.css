@@ -405,6 +405,13 @@ form > p > button, form > p > input, form > p > textarea{
 	font-weight: bolder;
 	color: black;
 }
+#create-list-input {
+	width: 30%;
+	height: 40px;
+	border: 2px solid #5f7782;
+	font-size: 12px;
+}
+
 .add-movie-button {
 	width: 50px;
 	height: 50px;
@@ -417,12 +424,28 @@ form > p > button, form > p > input, form > p > textarea{
 	font-size: 20px;
 	padding: 0;
 }
+#create-list-button {
+	height: 40px;
+}
+
+.movie-lightbox-buttons {
+	display:flex;
+}
+
 .delete-movie-button {
+	margin: 8px;
 	border-radius: 5px;
 	padding: 5px;
-	font-size: 12px;
+	font-size: 10px;
 	cursor: pointer;
 }
+.add-list-button {
+	margin: 8px;
+	padding: 5px;
+	font-size: 10px;
+	cursor: pointer;
+}
+
 /*
 form.movie-search .searchMovie {
 	width: 100%;

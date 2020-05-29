@@ -14,7 +14,7 @@ export class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			activeTab: 8,
+			activeTab: 6,
 		}
 		this.changeTab = (id) => {
 			this.setState({

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { MdAddCircle } from 'react-icons/md'
+import firebase from '../firebase'
 
 export class CreateList extends Component {
     constructor() {
         super();
         this.state = {
             listName: '',
-            allLists: []
+            //listID: '',
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleCreateList = this.handleCreateList.bind(this);
@@ -19,24 +20,58 @@ export class CreateList extends Component {
 	}
 
     handleCreateList(e) {
-       e.preventDefault();
-       let joinElement = this.state.allLists.concat(this.state.listName);
-       this.setState({ allLists: joinElement })
+        e.preventDefault();
+        let newList = this.state.listName;
+        const listData = firebase.database().ref('Lists');
+        var duplicates = false;
+        var numLists = 0;
+		listData.on('value', (snapshot) => {
+            let movieLists = snapshot.val();
+            numLists = snapshot.numChildren();
+            console.log(numLists)
+			for (let list in movieLists) {
+				if(movieLists[list].listName ==  newList) {
+					duplicates = true;
+					break;
+				}
+            }
+
+        });
+        //console.log("numLists after loop..")
+        //console.log(numLists)
+
+        var listItem = {
+            listName: newList,
+        }
+        console.log("listItem")
+        console.log(listItem)
+        
+        if(duplicates){
+            alert("ERROR: This list has already been created.");
+        } else {
+            listData.push(listItem)
+            this.setState({
+                listName: '',
+                //listID: ''
+            })
+            alert("List was successfully created!")
+        } 
     }
+    
 
     render() {
-        console.log("allLists[]...")
-        console.log(this.state.allLists)
+        //console.log("allLists[]...")
+       // console.log(this.state.listName)
         return(
             <div>
                 <div className="page-body">
-                    <form className="add-movie-form" onSubmit={this.handleCreateList}>
+                    <form className="add-movie-form" id="create-list" onSubmit={this.handleCreateList}>
                         <label>Create a Movie List</label>
                         <p className="add-movie">
-                            <button type="submit" className="add-movie-button">
+                            <button type="submit" className="add-movie-button" id="create-list-button">
                                     <MdAddCircle size={24}/>
                             </button>
-                            <input type="text" name="listName" placeholder="Enter list title..."
+                            <input type="text" name="listName" id="create-list-input" placeholder="Enter list title..."
                             onChange={this.handleChange} value={this.state.listName}></input>
                         </p>
                     </form>
