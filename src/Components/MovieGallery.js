@@ -3,6 +3,8 @@ import Movie from './Movie'
 import firebase from '../firebase'
 import { FaSearch } from 'react-icons/fa'
 import AddMovie from './AddMovie'
+
+
 export class MovieGallery extends Component {
 	constructor(){
 		super();
@@ -11,10 +13,15 @@ export class MovieGallery extends Component {
 			movie_list: [], // list of movies that will be displayed
 			// movieIDs: ["tt4501244", "tt3104988", "tt1570728", "tt5164432", "tt1632708",
 			// "tt1045658", "tt1638002", "tt1564367", "tt7374948"]
-			customLists: []
+			customLists: [],
+			activeList: 'All'
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearchMovie = this.handleSearchMovie.bind(this);
+		//this.showDropdownMenu = this.showDropdownMenu.bind(this);
+		this.getMenuContent = this.getMenuContent.bind(this);
+		this.displayList = this.displayList.bind(this);
+
 		
 	}
 	
@@ -53,24 +60,19 @@ export class MovieGallery extends Component {
 		})
 	}
 
-	showDropdownMenu(e) {
-		e.preventDefault();
-		//get the list names from firebase
-		//on render, map the values to a div
+	getMenuContent() {
 		const dataRef = firebase.database().ref('Lists');
 		dataRef.on('value', (snapshot) => {
 			let lists = snapshot.val();
 			let newListEntry = [];
 			for (let item in lists) {
-				newListEntry.push({
-					listName: lists[item].listName,
-				})
+				newListEntry.push(lists[item].listName)
 			}
+			
 			this.setState({
 				customLists: newListEntry
 			})
 		});
-
 	}
 
 	componentDidMount() {
@@ -93,12 +95,35 @@ export class MovieGallery extends Component {
 				movie_list: newState
 			});
 		});
+		this.getMenuContent();
 	}
 
+	displayList(list) {
+		//set movie list to this
+		const listRef = firebase.database().ref('MovieListPairs');
+		listRef.on('value', (snapshot) => {
+			let pairs = snapshot.val();
+			let listContent = [];
+			for(let item in pairs) {
+				if(pairs[item].listName === list) {
+					listContent.push({
+						movieID: pairs[item].movieID
+					})
+				}
+			}
+			this.setState({
+				movie_list: listContent
+			})
+		});
+		
+
+	}
 
     render() {
 		//console.log("this.state.movie_list")
-		console.log(this.state.movie_list)
+		//console.log(this.state.movie_list)
+		console.log("custom lists")
+		console.log(this.state.customLists)
         return(
             <div> 
 	    		<div className="page-body">
@@ -111,14 +136,14 @@ export class MovieGallery extends Component {
 							</button>
 						</p>
 					</form>
-					<h2 className="page-title">Movie Gallery</h2>
 					<div>
-						<div className="drop-down-movie-list">
-							<button onClick="showDropdownMenu()">Select List</button>
-	
+						<div className="list-menu">
+							{this.state.customLists.map((listItem) => {
+										return <button className="list-btn" id={listItem} onClick={() => {this.displayList(listItem)}}>{listItem}</button>
+							})}
 						</div>
-					
-
+				
+				
 					</div>
 					<div className="movie-body">
 						{this.state.movie_list.map((movie) => {

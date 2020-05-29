@@ -320,6 +320,7 @@ form > p > button, form > p > input, form > p > textarea{
 .active-movie .movie-content {
 	padding: 0 32px;
 }
+
 .movie-content .title {
 	font-size: 36px;
 	font-weight: bold;
@@ -332,6 +333,7 @@ form > p > button, form > p > input, form > p > textarea{
 }
 .movie-content .imdb-rating {
 	font-weight: bolder;
+
 }
 .movie-content .plot {
 	font-size: 14px;
@@ -444,8 +446,33 @@ form > p > button, form > p > input, form > p > textarea{
 	padding: 5px;
 	font-size: 10px;
 	cursor: pointer;
+}/*
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 120px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+.dropdown-content a {
+	height: 35px;
+	
+}
+.dropdown-content a:hover {
+	background-color: #f1f1f1;
 }
 
+.dropdown:hover .dropdown-content {
+  	display: flex;
+	flex-direction: column;
+	justify-content: center;
+  	align-items: center;
+}*/
 /*
 form.movie-search .searchMovie {
 	width: 100%;
@@ -469,4 +496,47 @@ form.movie-search .searchMovie {
 	border-left: none; /* Prevent double borders 
 	cursor: pointer;
   }*/
-  
+  #dropdown-container {
+	  position: relative;
+	  display: inline;
+  }
+  #dropdown {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	width: 90px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+  }
+
+  #dropdown a {
+	color: black;
+	padding: 2px 4px;
+	text-decoration: none;
+	display: block;
+	font-size: 10px;
+	border: #f9f9f9;
+	background-color: #f9f9f9;
+  }
+  #dropdown a:hover {
+	  background-color: #f1f1f1;
+  }
+
+  .list-menu {
+	  padding-bottom: 24px;
+  }
+  .list-btn {
+	border: none;
+	outline: none;
+	padding: 12px 16px;
+	background-color: #f1f1f1;
+	cursor: pointer;
+  }
+  .list-btn:hover {
+	background-color: #ddd;
+  }
+
+  .list-menu #All {
+	background-color: #666;
+	color: white;
+  }

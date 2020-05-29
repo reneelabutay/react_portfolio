@@ -17,9 +17,13 @@ export class Movie extends Component {
             movieID: '',
             showMenu: '',
             allCustomLists: [],
-            listsMovieBelongsTo: []
+            listsMovieBelongsTo: [],
+            AddToListContent: []
         };
         this.getAllLists = this.getAllLists.bind(this);
+        this.getThisMoviesLists = this.getThisMoviesLists.bind(this);
+        this.getAddToListContent = this.getAddToListContent.bind(this);
+        //this.addContent = this.addContent.bind(this);
     }
 
     componentDidMount() {
@@ -64,6 +68,7 @@ export class Movie extends Component {
             pairsRef.update(updates);
         });
     }
+
     removeMovie(e) {
         console.log(this.state.movieID)
         console.log(this.state.title)
@@ -87,33 +92,85 @@ export class Movie extends Component {
         listRef.on('value', (snapshot) => {
             let lists = snapshot.val();
             let allLists = [];
-            console.log(lists)
+            //console.log(lists)
             for(let item in lists) {
-                allLists.push({
-                    listName: lists[item].listName,
-                });
+                allLists.push(lists[item].listName);
             }
-            console.log(allLists)
+            //console.log(allLists)
             this.setState({
                 allCustomLists: allLists
             });
         });
-        this.getThisMoviesList();
+        this.getThisMoviesLists();
     }
 
-    getThisMoviesList() {
-        console.log("which list does this belong to?")
+    getThisMoviesLists() {
+        //console.log("which list does this belong to?")
         const listRef = firebase.database().ref('MovieListPairs');
         listRef.on('value', (snapshot) => {
             let pairs = snapshot.val();
-            console.log(pairs)
+            let listItBelongsTo = [];
+            //console.log(pairs)
+            for(let item in pairs) {
+                if(pairs[item].movieID === this.state.movieID) {
+                    listItBelongsTo.push(pairs[item].listName)
+                }
+            }
+            console.log("this is the lists it belongs to")
+            console.log(listItBelongsTo)
+            this.setState({
+                listsMovieBelongsTo: listItBelongsTo
+            })
         });
     }
+
+    showDropdownMenu() {
+        var menu = document.getElementById("dropdown")
+        if (menu.style.display === "none" || menu.style.display === "") {
+            menu.style.display = "block";
+        }
+        else {
+            menu.style.display = "none";
+        }
+    }
+
+    getAddToListContent(e) {
+        e.preventDefault();
+        const arr1 = this.state.allCustomLists;
+        const arr2 = this.state.listsMovieBelongsTo;
+        let uniqueVals = arr1.filter(function(obj) { return arr2.indexOf(obj) == -1; });
+        this.setState({
+            AddToListContent: uniqueVals
+        })
+        this.showDropdownMenu();
+    }
+
+    /*addContent(listValue) {
+
+        //push pair to firebase
+        const listRef = firebase.database().ref('MovieListPairs');
+        let newPair = {
+            listName: listValue,
+            movieID: this.state.movieID
+        }
+        
+
+    }*/
+    addToList(list) {
+        const listRef = firebase.database().ref('MovieListPairs');
+        let newPair = {
+            listName: list,
+            movieID: this.state.movieID
+        }
+        listRef.push(newPair);
+        alert("Movie was added to: " + list)
+    }
+
     
 
     
     render() {
-        console.log("in movie.js")
+        //console.log("in movie.js")
         console.log(this.state)
         return(
             <div className="movie-card">
@@ -134,7 +191,16 @@ export class Movie extends Component {
                             <p className="imdb-rating">&#9733; IMDB Rating {this.state.imdbRating}</p>
                             <div className="movie-lightbox-buttons">
                                 <button className="delete-movie-button" onClick={(e) => this.removeMovie(this.state.movieID, e)}>Delete Movie</button>
-                                <button className="add-list-button" onClick={this.getAllLists}>Add to List &#x25BC;</button>
+                                <div id="dropdown-container">
+                                <button className="add-list-button"onClick={this.getAddToListContent}>Add to List &#x25BC;</button>
+                                    <div id="dropdown">
+                                    {this.state.AddToListContent.map((list) => {
+                                        return <a onClick={() => {this.addToList(list)}}>{list}</a>
+                                    })}
+                                    </div>
+                                </div>
+                                    
+                                
                             </div>
                         </div> 
                     </div>
