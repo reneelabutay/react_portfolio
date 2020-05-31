@@ -87,7 +87,7 @@ export class Movie extends Component {
 
     getAllLists() {
         //e.preventDefault();
-        console.log("in getalllists")
+        //console.log("in getalllists")
         const listRef = firebase.database().ref('Lists');
         listRef.on('value', (snapshot) => {
             let lists = snapshot.val();
@@ -116,8 +116,8 @@ export class Movie extends Component {
                     listItBelongsTo.push(pairs[item].listName)
                 }
             }
-            console.log("this is the lists it belongs to")
-            console.log(listItBelongsTo)
+            //console.log("this is the lists it belongs to")
+            //console.log(listItBelongsTo)
             this.setState({
                 listsMovieBelongsTo: listItBelongsTo
             })
@@ -171,7 +171,7 @@ export class Movie extends Component {
     
     render() {
         //console.log("in movie.js")
-        console.log(this.state)
+        //console.log(this.state)
         return(
             <div className="movie-card">
                 <Popup modal trigger={<img src={this.state.poster}/>} lockScroll>

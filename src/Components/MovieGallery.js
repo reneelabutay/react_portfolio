@@ -3,6 +3,7 @@ import Movie from './Movie'
 import firebase from '../firebase'
 import { FaSearch } from 'react-icons/fa'
 import AddMovie from './AddMovie'
+import CreateList from './CreateList'
 
 
 export class MovieGallery extends Component {
@@ -14,15 +15,15 @@ export class MovieGallery extends Component {
 			// movieIDs: ["tt4501244", "tt3104988", "tt1570728", "tt5164432", "tt1632708",
 			// "tt1045658", "tt1638002", "tt1564367", "tt7374948"]
 			customLists: [],
-			activeList: 'All'
+			activeList: 'All',
+			numLoaded: 8,
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearchMovie = this.handleSearchMovie.bind(this);
-		//this.showDropdownMenu = this.showDropdownMenu.bind(this);
 		this.getMenuContent = this.getMenuContent.bind(this);
 		this.displayList = this.displayList.bind(this);
-
-		
+		this.changeActiveList = this.changeActiveList.bind(this);
+		this.loadMore = this.loadMore.bind(this);
 	}
 	
 	handleChange(e) {
@@ -75,9 +76,19 @@ export class MovieGallery extends Component {
 		});
 	}
 
+	//displaying the data
+	//needs pagination
 	componentDidMount() {
-		const dataRef = firebase.database().ref('MovieList');
-		dataRef.on('value', (snapshot) => {
+		this.loadMovies();
+		this.getMenuContent();
+	}
+
+	loadMovies() {
+		const loadLimit = this.state.numLoaded;
+		console.log("in load movies")
+		console.log(loadLimit)
+		const dataRef = firebase.database().ref('MovieList').orderByKey();
+		dataRef.limitToFirst(loadLimit + 1).on('value', (snapshot) => {
 			let movieData = snapshot.val();
 			let newState = [];
 			for(let item in movieData) {
@@ -95,11 +106,17 @@ export class MovieGallery extends Component {
 				movie_list: newState
 			});
 		});
-		this.getMenuContent();
+	}
+	
+	changeActiveList(list) {
+		this.setState({
+			activeList: list
+		})
 	}
 
+	//needs pagination
 	displayList(list) {
-		//set movie list to this
+		//displaying the movies in the selected list
 		const listRef = firebase.database().ref('MovieListPairs');
 		listRef.on('value', (snapshot) => {
 			let pairs = snapshot.val();
@@ -115,15 +132,38 @@ export class MovieGallery extends Component {
 				movie_list: listContent
 			})
 		});
-		
+		console.log(list)
+		this.changeActiveList(list);
+	}
+
+	addStyling = (list)  => {
+		//console.log("in addstyling")
+		//console.log("list...")
+		//console.log(list.listItem)
+		if(list.listItem === this.state.activeList) {
+			return {backgroundColor: '#666', color:'#e3e4e0'}
+		} else {
+			return {backgroundColor: '#f1f1f1'}
+		}
+	}
+
+	async loadMore() {
+		await this.setState({
+			numLoaded: this.state.numLoaded + 8
+		})
+		this.loadMovies();
 
 	}
+
+	
 
     render() {
 		//console.log("this.state.movie_list")
 		//console.log(this.state.movie_list)
-		console.log("custom lists")
-		console.log(this.state.customLists)
+		//console.log("custom lists")
+		//console.log(this.state.customLists)
+		//console.log("listttt")
+		//console.log(this.state.activeList)
         return(
             <div> 
 	    		<div className="page-body">
@@ -136,14 +176,18 @@ export class MovieGallery extends Component {
 							</button>
 						</p>
 					</form>
-					<div>
+					<div className="movie-list-section">
 						<div className="list-menu">
 							{this.state.customLists.map((listItem) => {
-										return <button className="list-btn" id={listItem} onClick={() => {this.displayList(listItem)}}>{listItem}</button>
+										return <button className="list-btn" id={listItem} onClick={() => {this.displayList(listItem)}}
+										style={this.addStyling({listItem})}>
+											{listItem}
+										</button>
 							})}
 						</div>
-				
-				
+						<div>
+							<CreateList/>
+						</div>
 					</div>
 					<div className="movie-body">
 						{this.state.movie_list.map((movie) => {
@@ -151,11 +195,20 @@ export class MovieGallery extends Component {
 							//console.log({movie})
 							return <Movie id={movie}/>
 						})}
+						
 					</div>
-					<div>
-						<AddMovie/>
+					<div className="load-more">
+						<button className="load-more-button" onClick={this.loadMore}>Load More</button>
 					</div>
+					
 				</div>
+				<div className="header-container">
+					<p>Add New Movies</p>
+				</div>
+				
+				<AddMovie/>
+				
+			
 	    	</div> 
         );
     }

@@ -302,6 +302,7 @@ form > p > button, form > p > input, form > p > textarea{
 .movie-card {
 	padding: 4px;
 	cursor: pointer;
+
 }
 .movie-card > img:hover {
 	opacity: 0.6;
@@ -396,6 +397,11 @@ form > p > button, form > p > input, form > p > textarea{
 	position: relative;
 	display: flex;
 }
+.create-list {
+	width: 100%;
+	position: relative;
+	display: flex;
+}
 .add-movie > input {
 	width: 100%;
 	border: 3px solid #5f7782;
@@ -408,7 +414,7 @@ form > p > button, form > p > input, form > p > textarea{
 	color: black;
 }
 #create-list-input {
-	width: 30%;
+	width: 80%;
 	height: 40px;
 	border: 2px solid #5f7782;
 	font-size: 12px;
@@ -523,7 +529,8 @@ form.movie-search .searchMovie {
   }
 
   .list-menu {
-	  padding-bottom: 24px;
+	  padding: 24px 0;
+	  height: 100px;
   }
   .list-btn {
 	border: none;
@@ -535,8 +542,53 @@ form.movie-search .searchMovie {
   .list-btn:hover {
 	background-color: #ddd;
   }
-
+/*
   .list-menu #All {
 	background-color: #666;
 	color: white;
   }
+*/
+#create-list {
+	padding: 24px 0;
+	height: 100px;
+}
+.create-list {
+	margin-bottom: 0 !important;
+}
+  .header-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #5f7782;
+	height: 80px;
+  }
+  .header-container p {
+	  color:#e3e4e0;
+	  text-transform: uppercase;
+	  font-size: 24px;
+	  font-weight: bolder;
+  }
+  .page-body-bottom {
+	margin-top: 5%;
+	margin-bottom: 12%;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+.movie-list-section {
+	display: flex;
+	justify-content: space-between;
+}
+.movie-list-section > div {
+	width: 50%
+}
+.load-more { 
+	display:flex;
+	justify-content: center;
+	padding-top: 48px;
+}
+.load-more-button {
+	border-radius: 5px;
+	width: 200px;
+	height: 50px;
+	cursor: pointer;
+}

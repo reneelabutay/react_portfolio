@@ -111,7 +111,7 @@ export class AddMovie extends Component {
   	render() {
 	    return (
             <div>
-                <div className="page-body">
+                <div className="page-body-bottom">
                     <form className="add-movie-form" onSubmit={this.handleAddMovie}>
                         <label>Add a Movie to the Movie Gallery</label>
                         <p className="add-movie">

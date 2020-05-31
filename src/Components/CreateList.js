@@ -63,20 +63,18 @@ export class CreateList extends Component {
         //console.log("allLists[]...")
        // console.log(this.state.listName)
         return(
-            <div>
-                <div className="page-body">
+            
                     <form className="add-movie-form" id="create-list" onSubmit={this.handleCreateList}>
-                        <label>Create a Movie List</label>
-                        <p className="add-movie">
+                        <p className="create-list">
+                       
                             <button type="submit" className="add-movie-button" id="create-list-button">
                                     <MdAddCircle size={24}/>
                             </button>
-                            <input type="text" name="listName" id="create-list-input" placeholder="Enter list title..."
+                            <input type="text" name="listName" id="create-list-input" placeholder="Enter your list title here!"
                             onChange={this.handleChange} value={this.state.listName}></input>
                         </p>
                     </form>
-                </div>
-            </div>
+        
         );
     }
 }
