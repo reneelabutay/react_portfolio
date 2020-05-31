@@ -26,7 +26,7 @@ export class Movie extends Component {
         //this.addContent = this.addContent.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         //collect the movie data
         //console.log("props id:")
         //console.log(this.props.id)
@@ -50,7 +50,8 @@ export class Movie extends Component {
                 }
             }
         })
-        this.getAllLists();
+        await this.getAllLists();
+        await this.getThisMoviesLists();
     }
 
     componentDidUpdate(prevProps) {
@@ -69,7 +70,7 @@ export class Movie extends Component {
         });
     }
 
-    removeMovie(e) {
+    async removeMovie(e) {
         console.log(this.state.movieID)
         console.log(this.state.title)
         const findThisID = this.state.movieID;
@@ -79,15 +80,15 @@ export class Movie extends Component {
             snapshot.forEach(child => updates[child.key] = null);
             dataRef.update(updates);
         });
-        this.removeMovieFromLists();
-
+        await this.removeMovieFromLists();
         window.location.reload(false);
+        alert("Movie was successfully deleted!")
         //firebase.database().child('MovieList').orderByChild('movieID').equalTo(findThisID).remove();
     }
 
     getAllLists() {
         //e.preventDefault();
-        //console.log("in getalllists")
+        console.log("in getalllists")
         const listRef = firebase.database().ref('Lists');
         listRef.on('value', (snapshot) => {
             let lists = snapshot.val();
@@ -101,18 +102,21 @@ export class Movie extends Component {
                 allCustomLists: allLists
             });
         });
-        this.getThisMoviesLists();
+        
     }
 
     getThisMoviesLists() {
         //console.log("which list does this belong to?")
+        //console.log("in getThisMoviesLists()")
+        //console.log("current movie... " + this.state.title)
         const listRef = firebase.database().ref('MovieListPairs');
         listRef.on('value', (snapshot) => {
             let pairs = snapshot.val();
             let listItBelongsTo = [];
-            //console.log(pairs)
             for(let item in pairs) {
+                //console.log("comparing " + pairs[item].movieID + " and " + this.state.movieID)
                 if(pairs[item].movieID === this.state.movieID) {
+                    //console.log("equal!!")
                     listItBelongsTo.push(pairs[item].listName)
                 }
             }
@@ -136,8 +140,11 @@ export class Movie extends Component {
 
     getAddToListContent(e) {
         e.preventDefault();
+        console.log("current movie... " + this.state.title)
         const arr1 = this.state.allCustomLists;
         const arr2 = this.state.listsMovieBelongsTo;
+        console.log("all lists: " + arr1)
+        console.log("lists that this movie is in: " + arr2)
         let uniqueVals = arr1.filter(function(obj) { return arr2.indexOf(obj) == -1; });
         this.setState({
             AddToListContent: uniqueVals
@@ -163,6 +170,7 @@ export class Movie extends Component {
             movieID: this.state.movieID
         }
         listRef.push(newPair);
+        window.location.reload();
         alert("Movie was added to: " + list)
     }
 

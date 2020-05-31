@@ -5,7 +5,6 @@ import Photography from './Photography'
 import Recipes from './Recipes'
 import GuestBook from './GuestBook'
 import MovieGallery from './MovieGallery'
-import CreateList from './CreateList'
 
 
 
@@ -24,8 +23,6 @@ export class Body extends Component {
 			return <GuestBook/>
 		else if (activeTab===6)
 			return <MovieGallery/>
-		else if (activeTab===8)
-			return <CreateList/>
 		else 
 			return <Home/>
 	}

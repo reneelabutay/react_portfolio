@@ -20,7 +20,7 @@ export class MovieGallery extends Component {
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSearchMovie = this.handleSearchMovie.bind(this);
-		this.getMenuContent = this.getMenuContent.bind(this);
+		this.getListTitles = this.getListTitles.bind(this);
 		this.displayList = this.displayList.bind(this);
 		this.changeActiveList = this.changeActiveList.bind(this);
 		this.loadMore = this.loadMore.bind(this);
@@ -61,7 +61,8 @@ export class MovieGallery extends Component {
 		})
 	}
 
-	getMenuContent() {
+	//gets list of titles
+	getListTitles() {
 		const dataRef = firebase.database().ref('Lists');
 		dataRef.on('value', (snapshot) => {
 			let lists = snapshot.val();
@@ -69,7 +70,6 @@ export class MovieGallery extends Component {
 			for (let item in lists) {
 				newListEntry.push(lists[item].listName)
 			}
-			
 			this.setState({
 				customLists: newListEntry
 			})
@@ -80,16 +80,36 @@ export class MovieGallery extends Component {
 	//needs pagination
 	componentDidMount() {
 		this.loadMovies();
-		this.getMenuContent();
+		this.getListTitles();
 	}
 
-	loadMovies() {
+	loadButtonDisplay(count) {
+		console.log("in load button function")
+		console.log(this.state.activeList)
+		var loadBtn = document.getElementById("load-btn");
+		console.log(count)
+		console.log(this.state.numLoaded)
+
+
+		if(count < this.state.numLoaded) {
+			console.log("going to hide load btn")
+			loadBtn.style.display = "none";
+		} else {
+			console.log("showing load btn")
+			loadBtn.style.display = "block";
+		}
+		
+		
+	}
+
+	async loadMovies() {
 		const loadLimit = this.state.numLoaded;
-		console.log("in load movies")
+		console.log("in load movies, loading ALLL")
 		console.log(loadLimit)
 		const dataRef = firebase.database().ref('MovieList').orderByKey();
 		dataRef.limitToFirst(loadLimit + 1).on('value', (snapshot) => {
 			let movieData = snapshot.val();
+			//let count = movieData.length;
 			let newState = [];
 			for(let item in movieData) {
 				newState.push({ 
@@ -102,6 +122,13 @@ export class MovieGallery extends Component {
 					rated: movieData[item].rated,
 				});
 			}
+			//console.log("length...")
+			//console.log(newState.length)
+			/*if(newState.length <= this.state.numLoaded) {
+				console.log("hide the load more button!")
+				this.hideLoadButton();
+			}*/
+			this.loadButtonDisplay(newState.length);
 			this.setState({
 				movie_list: newState
 			});
@@ -110,30 +137,56 @@ export class MovieGallery extends Component {
 	
 	changeActiveList(list) {
 		this.setState({
-			activeList: list
+			activeList: list,
+			numLoaded: 8
 		})
 	}
 
 	//needs pagination
-	displayList(list) {
+	async displayList(list) {
+		console.log("in display list")
 		//displaying the movies in the selected list
+		if(this.state.activeList != list) {
+			console.log("going to change active list and reset load limit to 8")
+			await this.changeActiveList(list);
+		}
+		if(this.state.activeList === 'All') {
+			this.loadMovies();
+		}
+		
+		const loadLimit = this.state.numLoaded;
+		console.log("load limit...")
+		console.log(loadLimit)
 		const listRef = firebase.database().ref('MovieListPairs');
 		listRef.on('value', (snapshot) => {
 			let pairs = snapshot.val();
+			console.log(pairs)
 			let listContent = [];
 			for(let item in pairs) {
 				if(pairs[item].listName === list) {
-					listContent.push({
-						movieID: pairs[item].movieID
-					})
+					console.log("length...")
+					console.log(listContent.length)
+					if(listContent.length < loadLimit) {
+						listContent.push({
+							movieID: pairs[item].movieID
+						})
+					}
 				}
 			}
+			console.log(listContent)
+			this.loadButtonDisplay(listContent.length);
+			/*if(listContent.length < loadLimit) {
+				console.log("list content is less than loadlimit")
+				console.log(listContent.length)
+				console.log(loadLimit)
+				this.hideLoadButton();
+			} */
+			
 			this.setState({
 				movie_list: listContent
 			})
 		});
-		console.log(list)
-		this.changeActiveList(list);
+		//console.log(list)
 	}
 
 	addStyling = (list)  => {
@@ -151,10 +204,18 @@ export class MovieGallery extends Component {
 		await this.setState({
 			numLoaded: this.state.numLoaded + 8
 		})
-		this.loadMovies();
-
+		if(this.state.activeList != 'All') {
+			console.log("not in all ")
+			console.log(this.state.activeList)
+			this.displayList(this.state.activeList);
+		} else {
+			console.log("loading all")
+			this.loadMovies();
+		}
+		
 	}
 
+	
 	
 
     render() {
@@ -198,7 +259,7 @@ export class MovieGallery extends Component {
 						
 					</div>
 					<div className="load-more">
-						<button className="load-more-button" onClick={this.loadMore}>Load More</button>
+						<button className="load-more-button" id="load-btn" onClick={this.loadMore}>Load More</button>
 					</div>
 					
 				</div>

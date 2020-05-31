@@ -47,18 +47,24 @@ export class AddMovie extends Component {
 	}
 
 	async addtoALLMoviesList() {
-		const pairRef = firebase.database().ref('MovieListPairs');	
+		const pairRef = firebase.database().ref('MovieListPairs');
+		/*pairRef.on('value', (snapshot) => {
+			let pairs = snapshot.val();
+			console.log("pairs...")
+			console.log(pairs)
+		})*/
 		let pair = {
 			movieID: this.state.movieID,
 			listName: 'All'
 		}
 		pairRef.push(pair);
-		alert("added to movie list pair")
+		//alert("added to movie list pair")
+		console.log("movie " + this.state.title + "was added to ALL list")
 	}
 
 	async handleAddMovie(e) {
 		e.preventDefault();
-		await this.loadMovieInfo(); //figure out async 
+		await this.loadMovieInfo(); 
 		const dataRef = firebase.database().ref('MovieList');	
 		//checks for duplicates
 		var duplicates = false;
@@ -103,6 +109,7 @@ export class AddMovie extends Component {
 				searchTerm: '',
 			});
 			alert("Movie was successfully added!");
+			window.location.reload();
 		}
 		
 	}	

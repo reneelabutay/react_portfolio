@@ -48,9 +48,6 @@ export class App extends Component {
 		{
 			id:6,
 			title: 'Movies'
-		}, {
-			id:8,
-			title: 'Create List'
 		}
 	  	]
 	    return (
