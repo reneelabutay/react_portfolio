@@ -40,7 +40,7 @@ export class MovieGallery extends Component {
 			let movie_list = snapshot.val();
 			let searchItems = [];
 			for(let item in movie_list) {
-				let currentTitle = movie_list[item].title
+				let currentTitle = movie_list[item].title;
 				if(currentTitle === searchWord) {
 					//console.log("FOUND ITEM!")
 					searchItems.push({
@@ -56,9 +56,11 @@ export class MovieGallery extends Component {
 				}
 			}
 			this.setState({
-				movie_list: searchItems
+				movie_list: searchItems,
+				searchTerm: ''
 			})
 		})
+		this.loadButtonDisplay(1);
 	}
 
 	//gets list of titles
