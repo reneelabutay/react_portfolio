@@ -81,7 +81,7 @@ export class Movie extends Component {
             dataRef.update(updates);
         });
         await this.removeMovieFromLists();
-        window.location.reload(false);
+        window.location.reload();
         alert("Movie was successfully deleted!")
         //firebase.database().child('MovieList').orderByChild('movieID').equalTo(findThisID).remove();
     }
@@ -172,11 +172,7 @@ export class Movie extends Component {
         listRef.push(newPair);
         window.location.reload();
         alert("Movie was added to: " + list)
-    }
-
-    
-
-    
+    }    
     render() {
         //console.log("in movie.js")
         //console.log(this.state)

@@ -14,6 +14,7 @@ export class AddMovie extends Component {
 			imdbRating: '',
 			plot: '',
 			rated: '',
+			actors: '',
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleAddMovie = this.handleAddMovie.bind(this);
@@ -40,9 +41,10 @@ export class AddMovie extends Component {
                 poster: response.data.Poster,
 				imdbRating: response.data.imdbRating,
 				plot: response.data.Plot,
-                rated: response.data.Rated,
+				rated: response.data.Rated,
+				actors: response.data.Actors,
 			})
-			console.log(this.state.title) // printed
+			console.log(this.state.actors) // printed
 		})
 	}
 
@@ -88,7 +90,8 @@ export class AddMovie extends Component {
 			poster: this.state.poster,
 			imdbRating: this.state.imdbRating,
 			plot: this.state.plot,
-			rated: this.state.rated
+			rated: this.state.rated,
+			actors: this.state.actors
 		}
 		console.log("movie item...")
 		console.log(movieItem)
@@ -107,9 +110,10 @@ export class AddMovie extends Component {
 				plot: '',
 				rated: '',
 				searchTerm: '',
+				actors: '',
 			});
 			alert("Movie was successfully added!");
-			window.location.reload();
+			//window.location.reload();
 		}
 		
 	}	

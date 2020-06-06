@@ -51,6 +51,7 @@ export class MovieGallery extends Component {
 						imdbRating: movie_list[item].imdbRating,
 						plot: movie_list[item].plot,
 						rated: movie_list[item].rated,
+						actors: movie_list[item].actors,
 					});
 					break;
 				}
@@ -92,7 +93,6 @@ export class MovieGallery extends Component {
 		console.log(count)
 		console.log(this.state.numLoaded)
 
-
 		if(count < this.state.numLoaded) {
 			console.log("going to hide load btn")
 			loadBtn.style.display = "none";
@@ -122,6 +122,7 @@ export class MovieGallery extends Component {
 					imdbRating: movieData[item].imdbRating,
 					plot: movieData[item].plot,
 					rated: movieData[item].rated,
+					actors: movieData[item].actors,
 				});
 			}
 			//console.log("length...")
