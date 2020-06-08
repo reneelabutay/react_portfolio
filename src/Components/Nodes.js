@@ -24,14 +24,8 @@ export class Nodes extends Component {
             //console.log((d3.event.x))
             d.fx = d3.event.x;
             d.fy = d3.event.y;
-            tooltip.style("top", (d.fy - 30) + "px").style("left", (d.fx - 20) + "px").style("opacity", 1);
-            //tooltip.style("left", (d3.event.pageX) + "px").style("top", (d3.event.pageY - 28) + "px").style("opacity", 1);
-           // tooltip.style("left", (d3.event.pageX) + "px")
-             //   .style("top", (d3.event.pageY - 28) + "px");
-
+            tooltip.style("top", (d.fy-28) + "px").style("left", (d.fx) + "px");
         }
-        //.style("left", (d3.event.pageX) + "px")
-        //.style("top", (d3.event.pageY - 28) + "px");
         function dragEnded(d) {
             if (!d3.event.active) simulation.alphaTarget(0);
             d.fx = null;
@@ -45,7 +39,7 @@ export class Nodes extends Component {
 
     chart(nodes, links) {
         const width = 1920;
-        const height = 1920;
+        const height = 1500;
 
         const obj_links = links.map(d => Object.create(d));
         const obj_nodes = nodes.map(d => Object.create(d));
@@ -63,7 +57,6 @@ export class Nodes extends Component {
             .join("line")
             .attr("stroke-width", 1.5);
 
-
         const radius = (node) => {
             if(node.group === 'movie')
                 return 120;
@@ -71,7 +64,7 @@ export class Nodes extends Component {
         }
 
         const simulation = d3.forceSimulation(obj_nodes)
-            .force("link", d3.forceLink().links(obj_links).id(d => {return d.name; }).distance(200))
+            .force("link", d3.forceLink().links(obj_links).id(d => {return d.name; }).distance(300))
             .force("charge", d3.forceManyBody())
             .force("center", d3.forceCenter(width / 2, height / 2)); //centers it
 
@@ -97,7 +90,6 @@ export class Nodes extends Component {
             .append("div")
             .style("position", "absolute")
             .style("z-index", "10")
-            //.style("visibility", "hidden")
             .style("opacity", 0)
             .style("background-color", "#f6f6f5")
             .style("width", "150px")
@@ -110,12 +102,12 @@ export class Nodes extends Component {
             .style("border-radius", "3px");
 
         // shows actor name on hover
-        var mouseHover = function(node) {
+        var mouseOver = function(node) {
             console.log("mouse hover")
             if(node.group === "actor") {
-                tooltip.transition()
-                    .duration(200)
-                tooltip.html(node.name)
+                //tooltip.transition()
+                   // .duration(200)
+                tooltip.text(node.name)
                     .style("opacity", 1)
                     .style("stroke", "black")
                 
@@ -124,7 +116,7 @@ export class Nodes extends Component {
 
         var mouseMove = function(node) {
             if(node.group === "actor") {
-                tooltip.html(node.name)
+                tooltip.text(node.name)
                     .style("opacity", 1)
                     .style("left", (d3.event.pageX) + "px")
                     .style("top", (d3.event.pageY - 28) + "px");
@@ -133,9 +125,7 @@ export class Nodes extends Component {
 
         var mouseOut = function(node) {
             if(node.group === "actor") {
-                tooltip.transition()
-                    .duration(200)
-                    .style("opacity", 0)
+                tooltip.style("opacity", 0)
             }
         }
 
@@ -148,10 +138,10 @@ export class Nodes extends Component {
                 return 'id-'+d.id;
             })
             .attr('patternUnits', 'objectBoundingBox')
-            .attr('width', 1)
-            .attr('height', 1)
             .append('image')
             .attr('xlink:href', moviePoster)
+            .attr('width', 1)
+            .attr('height', 1)
             .attr('x', -35)
             .attr('y', -35)
             .attr('width', 220)
@@ -167,7 +157,7 @@ export class Nodes extends Component {
             .attr("r", radius)
             .attr("cursor", "pointer")
             .attr("fill", moviePoster)
-            .on("mouseover", mouseHover)
+            .on("mouseover", mouseOver)
             .on("mousemove", mouseMove)
             .on("mouseout", mouseOut)
             .call(this.drag(simulation, tooltip));
