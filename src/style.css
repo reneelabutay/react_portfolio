@@ -452,56 +452,7 @@ form > p > button, form > p > input, form > p > textarea{
 	padding: 5px;
 	font-size: 10px;
 	cursor: pointer;
-}/*
-.dropdown {
-	position: relative;
-	display: inline-block;
 }
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 120px;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
-}
-.dropdown-content a {
-	height: 35px;
-	
-}
-.dropdown-content a:hover {
-	background-color: #f1f1f1;
-}
-
-.dropdown:hover .dropdown-content {
-  	display: flex;
-	flex-direction: column;
-	justify-content: center;
-  	align-items: center;
-}*/
-/*
-form.movie-search .searchMovie {
-	width: 100%;
-	border: 3px solid #00B4CC;
-	border-right: none;
-	padding: 5px;
-	height: 20px;
-	border-radius: 5px 0 0 5px;
-	outline: none;
-	color: #9DBFAF;
-  }
-
-  form.movie-search button {
-	float: left;
-	width: 20%;
-	padding: 10px;
-	background: #5f7782;
-	color: white;
-	font-size: 17px;
-	border: 1px solid grey;
-	border-left: none; /* Prevent double borders 
-	cursor: pointer;
-  }*/
   #dropdown-container {
 	  position: relative;
 	  display: inline;
