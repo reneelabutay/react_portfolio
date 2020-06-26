@@ -50,11 +50,6 @@ export class AddMovie extends Component {
 
 	async addtoALLMoviesList() {
 		const pairRef = firebase.database().ref('MovieListPairs');
-		/*pairRef.on('value', (snapshot) => {
-			let pairs = snapshot.val();
-			console.log("pairs...")
-			console.log(pairs)
-		})*/
 		let pair = {
 			movieID: this.state.movieID,
 			listName: 'All'
@@ -73,9 +68,6 @@ export class AddMovie extends Component {
 		dataRef.on('value', (snapshot) => {
 			let movie_list = snapshot.val();
 			for (let item in movie_list) {
-				//console.log("in loop")
-				//console.log(movie_list[item])
-				//console.log(movieItem.movieID)
 				if(movie_list[item].movieID ==  this.state.movieID) {
 					duplicates = true;
 					break;

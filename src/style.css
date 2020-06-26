@@ -61,6 +61,25 @@ p {
 .main-body > div > p {
 	padding-left:10px;
 }
+.homepage-buttons {
+	display:flex !important;
+}
+.homepage-buttons button {
+	margin: 4px;
+	padding: 8px;
+	height: 40px;
+	font-size: 14px;
+	cursor: pointer;
+	border-radius: 20px;
+	background-color: #5f7782;
+	color: #e3e4e0;
+	font-weight: bolder;
+}
+.homepage-buttons button:hover {
+	opacity: 0.8;
+	transform: scale(1.01) 
+}
+
 
 /*******************/
 /***  PROJECTS   ***/
